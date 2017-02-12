@@ -1,4 +1,18 @@
 SuperCart::Application.routes.draw do
+  get "item/show"
+
+  get "item/index"
+
+  get "item/new"
+
+  get "item/create"
+
+  get "item/edit"
+
+  get "item/update"
+
+  get "item/destroy"
+
   get "user/new"
 
   get "user/create"

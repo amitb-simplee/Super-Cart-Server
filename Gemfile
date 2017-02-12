@@ -17,6 +17,9 @@ group :development, :test do
   # Use RSpec for specs
   gem 'rspec-rails'
 
+  # Use Rspec for mongoid
+  gem 'mongoid-rspec'
+
   # Use Factory Girl for generating random test data
   gem 'factory_girl_rails'
 end

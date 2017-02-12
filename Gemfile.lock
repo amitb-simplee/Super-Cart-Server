@@ -51,6 +51,10 @@ GEM
       moped (~> 1.4)
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
+    mongoid-rspec (1.13.0)
+      mongoid (~> 3.1)
+      rake
+      rspec (~> 3.1)
     moped (1.5.3)
     multi_json (1.12.1)
     origin (1.1.0)
@@ -83,6 +87,10 @@ GEM
     rake (12.0.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -119,6 +127,7 @@ DEPENDENCIES
   byebug
   factory_girl_rails
   mongoid
+  mongoid-rspec
   rails (= 3.2.22.2)
   rails-api
   rspec-rails

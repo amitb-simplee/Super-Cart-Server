@@ -1,4 +1,18 @@
 SuperCart::Application.routes.draw do
+  get "user/new"
+
+  get "user/create"
+
+  get "user/update"
+
+  get "user/edit"
+
+  get "user/destoy"
+
+  get "user/index"
+
+  get "user/show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

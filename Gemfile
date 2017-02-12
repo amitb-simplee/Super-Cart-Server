@@ -8,6 +8,18 @@ gem 'rails', '3.2.22.2'
 
 gem 'rails-api'
 
+gem 'byebug'
+
+gem 'mongoid'
+
+group :development, :test do
+
+  # Use RSpec for specs
+  gem 'rspec-rails'
+
+  # Use Factory Girl for generating random test data
+  gem 'factory_girl_rails'
+end
 
 
 

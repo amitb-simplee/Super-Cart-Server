@@ -18,9 +18,8 @@ class CartController < ApplicationController
 
   def create
     @cart = Cart.new(cart_params)
-
-    if @cart.save!
-      render json: @cart
+    if @cart.save
+      render json: @cart, status: :created
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
@@ -28,6 +27,7 @@ class CartController < ApplicationController
 
   def edit
     @cart = Cart.new(cart_params)
+
     render json: @cart
   end
 
@@ -36,8 +36,8 @@ class CartController < ApplicationController
       params[:date] = Time.zone.now
     end
 
-    if @cart.update_attributes!(cart_params)
-      render json: @cart
+    if @cart.update_attributes(cart_params)
+      head :no_content
     else
       render json: @cart.errors, status: :unprocessable_entity
     end

@@ -40,7 +40,7 @@ RSpec.describe ItemController, :type => :controller do
       post :create, :cart_id => cart._id, :name => "test item create name", :quantity => "1", :note => "test item new note"
       # expect(JSON.parse(response.body)["items"].count).to eq(cart["items"].count + 1)
       expect(JSON.parse(response.body)["name"]).to eq(item["name"])
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:created)
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe ItemController, :type => :controller do
       cart.reload
 
       expect(cart.items.first["name"]).not_to eq(item["name"])
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(204)
     end
   end
 
@@ -66,6 +66,7 @@ RSpec.describe ItemController, :type => :controller do
       delete :destroy, cart_id: cart._id, id: cart.items.first._id
       cart.reload
       expect(cart.items.count).to eq(0)
+      expect(response).to have_http_status(204)
     end
   end
 

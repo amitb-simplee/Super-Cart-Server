@@ -7,8 +7,9 @@ class Cart
 
   attr_accessor :name
 
-  def initalize
+  def initalize(params = {})
   	super #must be called with mongoid
+    self.name = params.fetch(:name)
   end
 
   def move_item(new_position, old_position)

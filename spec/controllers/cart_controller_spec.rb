@@ -34,7 +34,7 @@ RSpec.describe CartController, :type => :controller do
     it "creates and saves a cart" do
       post :create, :name => "rspec cart create"
       cart = JSON.parse(response.body)
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:created)
       expect(cart["name"]).to eq("rspec cart create")
     end
   end
@@ -44,8 +44,9 @@ RSpec.describe CartController, :type => :controller do
       #TODO: fix why is it saving the object if seeded?
       cart = Cart.create({:name => "rspec cart show"})
       put :update,  id: cart._id, :name => "rspec cart update"
-      expect(JSON.parse(response.body)["name"]).not_to eq(cart["name"])
-      expect(response).to have_http_status(:success)
+      reloaded_cart = cart.reload
+      expect(reloaded_cart["name"]).not_to eq(cart["name"])
+      expect(response).to have_http_status(204)
     end
   end
 
@@ -54,6 +55,7 @@ RSpec.describe CartController, :type => :controller do
       cart = Cart.create(:name => "destroy test cart")
       delete :destroy, :id => cart._id
       expect { cart.reload }.to raise_error Mongoid::Errors::DocumentNotFound
+      expect(response).to have_http_status(204)
     end
   end
 

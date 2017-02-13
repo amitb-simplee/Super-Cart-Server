@@ -20,8 +20,9 @@ class ItemController < ApplicationController
     # @cart.items << Item.new(item_params)
     item = Item.new(item_params)
     @cart.items << item
-    if item.save!
-      render json: item
+
+    if item.save
+      render json: item, status: :created
     else
       render json: item.errors, status: :unprocessable_entity
     end
@@ -33,8 +34,8 @@ class ItemController < ApplicationController
   end
 
   def update
-    if @item.update_attributes!(item_params)
-      render json: @item
+    if @item.update_attributes(item_params)
+      head :no_content
     else
       render json: @item.errors, status: :unprocessable_entity
     end

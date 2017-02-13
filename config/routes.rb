@@ -1,31 +1,21 @@
 SuperCart::Application.routes.draw do
-  get "item/show"
+  resources :cart
 
-  get "item/index"
+  resources :item
 
-  get "item/new"
+  # get "user/new"
 
-  get "item/create"
+  # get "user/create"
 
-  get "item/edit"
+  # get "user/update"
 
-  get "item/update"
+  # get "user/edit"
 
-  get "item/destroy"
+  # get "user/destoy"
 
-  get "user/new"
+  # get "user/index"
 
-  get "user/create"
-
-  get "user/update"
-
-  get "user/edit"
-
-  get "user/destoy"
-
-  get "user/index"
-
-  get "user/show"
+  # get "user/show"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

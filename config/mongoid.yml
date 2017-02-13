@@ -1,3 +1,5 @@
+#/usr/local/opt/mongodb/bin/mongod
+
 development:
   # Configure available database sessions. (required)
   sessions:

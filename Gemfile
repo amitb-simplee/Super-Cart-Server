@@ -25,6 +25,10 @@ group :development, :test do
 
   # Use faker for randomly created names in test
   gem 'faker'
+
+  # Use Database Cleaner for strategies in cleaning your database in Ruby.
+  gem 'database_cleaner'
+  
 end
 
 

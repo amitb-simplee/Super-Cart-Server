@@ -11,7 +11,7 @@ RSpec.describe ItemController, :type => :controller do
 
   describe "GET #index" do
     it "shows all items of cart" do
-      cart = Cart.first      
+      cart = Cart.create({:name => "rspec item index"})   
       get :index, cart_id: cart._id
       expect(response).to have_http_status(:success)
 
@@ -22,7 +22,7 @@ RSpec.describe ItemController, :type => :controller do
 
   describe "GET #new" do
     it "creates new item" do
-      cart = Cart.first
+      cart = Cart.create({:name => "rspec item new"})
       item = Item.new({:name => "test item new name", :quantity => "1", :note => "test item new note"})
     
       get :new, :cart_id => cart._id, :name => "test item new name", :quantity => "1", :note => "test item new note"
@@ -35,7 +35,7 @@ RSpec.describe ItemController, :type => :controller do
 
   describe "GET #create" do
     it "creates new item into cart" do
-      cart = Cart.first
+      cart = Cart.create({:name => "rspec item create"})
       item = Item.new({:name => "test item create name", :quantity => "1", :note => "test item create note"})
       post :create, :cart_id => cart._id, :name => "test item create name", :quantity => "1", :note => "test item new note"
       # expect(JSON.parse(response.body)["items"].count).to eq(cart["items"].count + 1)

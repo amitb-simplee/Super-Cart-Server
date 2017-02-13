@@ -104,6 +104,16 @@ RSpec.configure do |config|
     # Mongoid::Sessions.default.collections.select {|c| c.name !~ /system/}.each {|c| c.find.remove_all}
   end
 
-  # 
+    # Clean up the database
+  require 'database_cleaner'
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.orm = "mongoid"
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
+  end
+  
 
 end

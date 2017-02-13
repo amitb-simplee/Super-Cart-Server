@@ -5,6 +5,8 @@ class Cart
 
   embeds_many :items
 
+  attr_accessor :name
+
   def initalize
   	super #must be called with mongoid
   end

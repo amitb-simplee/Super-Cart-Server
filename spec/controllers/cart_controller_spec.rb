@@ -4,9 +4,7 @@ RSpec.describe CartController, :type => :controller do
 
   describe "GET #show" do
     it "shows a cart" do
-      # cart = Cart.create({:name => "rspec cart show"})
-      # cart.save!
-      cart = Cart.first
+      cart = Cart.create({:name => "rspec cart show"})
       get :show, id: cart._id
       expect(response).to have_http_status(:success)
       # expect(JSON.parse(response.body)["_id"]).to eq(cart["_id"])
@@ -44,7 +42,7 @@ RSpec.describe CartController, :type => :controller do
   describe "GET #update" do
     it "returns http success" do
       #TODO: fix why is it saving the object if seeded?
-      cart = Cart.first
+      cart = Cart.create({:name => "rspec cart show"})
       put :update,  id: cart._id, :name => "rspec cart update"
       expect(JSON.parse(response.body)["name"]).not_to eq(cart["name"])
       expect(response).to have_http_status(:success)

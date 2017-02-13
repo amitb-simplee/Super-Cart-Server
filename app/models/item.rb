@@ -7,7 +7,11 @@ class Item
   
   embedded_in :cart, :inverse_of => :items
 
-   def initalize
+  # TODO: why is unmarking this brakes the spec?
+  # attr_accessor :name, :quantity, :note, :checked
+
+  def initalize
   	super #must be called with mongoid
   end
+
 end

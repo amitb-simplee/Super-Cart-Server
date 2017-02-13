@@ -1,25 +1,30 @@
 #mongo mongo_super_cart_development
 
 require 'rails_helper'
-RSpec.configure do |config|
-  config.include Mongoid::Matchers, type: :model
-  Mongoid.default_session.collections.select {|c| c.name !~ /system/ }.each(&:drop)
-
-  RSpec.describe Item, :type => :model do
-    it { is_expected.to be_embedded_in(:cart).as_inverse_of(:items) }
-  end
-
-end
 
 describe Item do
   before :each do
-    @item = build(:item)
+    @cart = FactoryGirl.build(:cart)
+    5.times do
+      item = FactoryGirl.build(:item)
+      @cart.items << item
+    end
   end
 
-  it "should be abble to create an item" do
-  	expect(@item.name).to eq("item test")
-  	expect(@item.quantity).to eq("1")
-  	expect(@item.note).to eq("note test")
+  it "should be able to edit an item" do
+    item = @cart.items.last
+    item.note = "updated item note"
+
+    reloaded_item = @cart.items.last
+    expect(reloaded_item).to eq(item)
+  end
+
+  it "should be able to check item" do 
+    item = @cart.items.last
+    item.checked = true
+
+    reloaded_item = @cart.items.last
+    expect(reloaded_item.checked).to eq(true)
   end
 
 end

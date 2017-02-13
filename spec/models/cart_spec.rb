@@ -1,30 +1,35 @@
 require 'rails_helper'
 
-RSpec.configure do |config|
-  config.include Mongoid::Matchers, type: :model
-    # Clean/Reset Mongoid DB prior to running the tests
-
-
-  RSpec.describe Cart, :type => :model do
-    it { is_expected.to embed_many(:items) }
-  end
-  
-end
-
 describe Cart do
   before :each do
-    @cart = build(:cart)
+    @cart = FactoryGirl.build(:cart)
   end
 
-  it "should be abble to create a cart" do	
-  	expect(@cart.name).to eq("cart test")
+  it "should be abble to build a cart" do	
+  	expect(@cart.name).to eq("factory girl cart")
   end
 
-  it "should be abble to create a cart on the db" do
-  	params = {:name => "test create cart"}
-    cart = Cart.new(params)
-  	cart.save!
-  	expect(Cart.find_by(:_id => cart._id).name).to eq("test create cart")
+  it "should be able to add item to cart" do
+    item = FactoryGirl.build(:item)
+    expect(@cart.items.size).to eq(0)
+    @cart.items << item
+    expect(@cart.items.size).to eq(1)
+  end
+
+  it "should be able to move the item in the cart" do
+    moved_item = @cart.items.last
+    @cart.move_item(0,@cart.items.size-1)
+
+    expect(@cart.items.first).to eq(moved_item)
+  end
+
+  it "should be able to remove items from cart" do
+    item = FactoryGirl.build(:item)
+    expect(@cart.items.size).to eq(0)
+    @cart.items << item
+    expect(@cart.items.size).to eq(1)
+    @cart.items -= [item]
+    expect(@cart.items.size).to eq(0)
   end
 
 end

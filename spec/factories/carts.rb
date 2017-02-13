@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :cart do
-    date "date test"
-    name "cart test"
+  factory :cart do |f|
+    f.date Time.zone.now
+    f.name "factory girl cart"
   end
 end

@@ -8,10 +8,19 @@ class Item
   embedded_in :cart, :inverse_of => :items
 
   # TODO: why is unmarking this brakes the spec?
-  # attr_accessor :name, :quantity, :note, :checked
+  attr_accessible :name, :quantity, :note, :checked
 
   def initalize
   	super #must be called with mongoid
+  #   self.name = params.fetch(:name)
+  #   self.quantity = params.fetch(:quantity)
+  #   self.note = params.fetch(:note)
+  #   self.checked = false
+  end
+
+  def create(params = {})
+    super
+    
     self.name = params.fetch(:name)
     self.quantity = params.fetch(:quantity)
     self.note = params.fetch(:note)

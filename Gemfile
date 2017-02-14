@@ -12,6 +12,8 @@ gem 'byebug'
 
 gem 'mongoid'
 
+gem 'bcrypt'
+
 group :development, :test do
 
   # Use RSpec for specs

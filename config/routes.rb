@@ -3,19 +3,12 @@ SuperCart::Application.routes.draw do
 
   resources :item
 
-  # get "user/new"
-
-  # get "user/create"
-
-  # get "user/update"
-
-  # get "user/edit"
-
-  # get "user/destoy"
-
-  # get "user/index"
-
-  # get "user/show"
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "sign_up" => "users#new", :as => "sign_up"
+  root :to => "users#new"
+  resources :user
+  resources :sessions
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

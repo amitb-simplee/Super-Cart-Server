@@ -5,8 +5,12 @@ describe Cart do
     @cart = FactoryGirl.build(:cart)
   end
 
-  it "should be abble to build a cart" do	
+  it "should be able to build a cart" do	
   	expect(@cart.name).to eq("factory girl cart")
+  end
+
+  it "should have an admin" do  
+    expect(@cart.admin).to eq("admin_id")
   end
 
   it "should be able to add item to cart" do

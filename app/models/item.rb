@@ -7,7 +7,6 @@ class Item
   
   embedded_in :cart, :inverse_of => :items
 
-  # TODO: why is unmarking this brakes the spec?
   attr_accessible :name, :quantity, :note, :checked
 
   def initalize
@@ -20,7 +19,7 @@ class Item
 
   def create(params = {})
     super
-    
+
     self.name = params.fetch(:name)
     self.quantity = params.fetch(:quantity)
     self.note = params.fetch(:note)

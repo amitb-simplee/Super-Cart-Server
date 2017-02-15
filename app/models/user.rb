@@ -43,7 +43,7 @@ class User
       self.save!
     end
 
-    cart.add_user(self._id)
+    cart.add_user(self.email)
     cart.save!
 
   end

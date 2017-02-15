@@ -97,11 +97,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
   config.before :each do
-    #TODO: clear db before rspec test
     Rails.application.load_seed
-    # byebug
-    # Mongoid.default_session.collections.each { |coll| coll.drop unless /^system/.match(coll.name) }
-    # Mongoid::Sessions.default.collections.select {|c| c.name !~ /system/}.each {|c| c.find.remove_all}
   end
 
     # Clean up the database

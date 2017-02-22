@@ -47,12 +47,13 @@ RSpec.describe ItemsController, :type => :controller do
   describe "GET #update" do
     it "updates an item in cart" do
       cart = Cart.create(:name => "update item in cart")
-      item = Item.new(:name => "new item in update")
+      item = Item.new(:name => "new item in update", :quantity => 1)
       cart.items << item
       put :update, cart_id: cart._id, id: item._id, name: "updated item in cart"
       cart.reload
 
       expect(cart.items.first["name"]).not_to eq(item["name"])
+      expect(cart.items.first["quantity"]).to eq(item["quantity"])
       expect(response).to have_http_status(204)
     end
   end

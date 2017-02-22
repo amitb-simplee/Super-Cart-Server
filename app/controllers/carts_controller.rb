@@ -1,6 +1,7 @@
-class CartController < ApplicationController
+class CartsController < ApplicationController
   # include ActionController::MimeResponds
-
+  # user authentication
+  # ApiV1 Convtroller
   before_filter :load_cart, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -8,7 +9,9 @@ class CartController < ApplicationController
   end
 
   def index
+    @carts = Cart.find_by(user: params[:userId])
     #TODO: to be implmeneted when user is created
+    render json: @cart
   end
 
   def new

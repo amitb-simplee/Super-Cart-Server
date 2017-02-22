@@ -1,4 +1,4 @@
-class ItemController < ApplicationController
+class ItemsController < ApplicationController
   before_filter :load_cart
   before_filter :load_item, only: [:show, :edit, :update, :destroy]
   def show

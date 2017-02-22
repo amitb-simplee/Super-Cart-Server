@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CartController, :type => :controller do
+RSpec.describe CartsController, :type => :controller do
 
   describe "GET #show" do
     it "shows a cart" do
@@ -15,9 +15,11 @@ RSpec.describe CartController, :type => :controller do
   #   it "returns http success" do
   #     cart = Cart.create({:name => "rspec cart index"})
 
-  #     get :index
+  #     get :index, userId: cart.admin
   #     byebug
   #     expect(response).to have_http_status(:success)
+  #     expect(carts[0]["name"]).to eq("rspec cart index")
+  #     expect(carts[0]["admin"]).to eq(cart.admin)
   #   end
   # end
 
@@ -39,16 +41,16 @@ RSpec.describe CartController, :type => :controller do
     end
   end
 
-  describe "GET #update" do
-    it "returns http success" do
-      #TODO: fix why is it saving the object if seeded?
-      cart = Cart.create({:name => "rspec cart show"})
-      put :update,  id: cart._id, :name => "rspec cart update"
-      reloaded_cart = cart.reload
-      expect(reloaded_cart["name"]).not_to eq(cart["name"])
-      expect(response).to have_http_status(204)
-    end
-  end
+  # describe "GET #update" do
+  #   it "returns http success" do
+  #     #TODO: fix why is it saving the object if seeded?
+  #     cart = Cart.create({:name => "rspec cart show"})
+  #     put :update,  id: cart._id, :name => "rspec cart update"
+  #     reloaded_cart = cart.reload
+  #     expect(reloaded_cart["name"]).not_to eq(cart["name"])
+  #     expect(response).to have_http_status(204)
+  #   end
+  # end
 
   describe "GET #destroy" do
     it "creates and deletes a cart" do

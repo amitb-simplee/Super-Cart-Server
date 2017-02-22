@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ItemController, :type => :controller do
+RSpec.describe ItemsController, :type => :controller do
 
   # describe "GET #show" do
   #   it "shows an item" do

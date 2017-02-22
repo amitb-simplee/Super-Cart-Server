@@ -1,9 +1,9 @@
 SuperCart::Application.routes.draw do
   match "*all" => "application#cors_preflight_check", :constraints => { :method => "OPTIONS" }
   
-  resources :cart
+  resources :carts
 
-  resources :item
+  resources :items
 
   # get "health_check" => "application#health_check", :as => "health_check"
   get "log_out" => "sessions#destroy", :as => "log_out"

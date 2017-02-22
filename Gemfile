@@ -14,6 +14,8 @@ gem 'mongoid'
 
 gem 'bcrypt'
 
+gem 'rack-cors'
+
 group :development, :test do
 
   # Use RSpec for specs

@@ -1,15 +1,19 @@
 SuperCart::Application.routes.draw do
+  match "*all" => "application#cors_preflight_check", :constraints => { :method => "OPTIONS" }
+  
   resources :cart
 
   resources :item
 
+  # get "health_check" => "application#health_check", :as => "health_check"
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
-  root :to => "users#new"
-  resources :user
+  get "health_check" => "user#health_check", :as => "health_check"
   resources :sessions
 
+  root :to => "users#new"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

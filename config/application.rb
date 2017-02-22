@@ -61,7 +61,7 @@ module SuperCart
 
     config.action_dispatch.default_headers = {
         'Access-Control-Allow-Origin' => 'http://localhost:8080/',
-        'Access-Control-Request-Method' => %w{GET POST DELETE OPTIONS}.join(",")
+        'Access-Control-Request-Method' => %w{GET POST PUT DELETE OPTIONS}.join(",")
       }
 
     # Enable the asset pipeline
@@ -73,9 +73,9 @@ module SuperCart
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :delete, :options]
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
       end
     end
-        
+    
   end
 end

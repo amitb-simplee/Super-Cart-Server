@@ -11,6 +11,7 @@ class Cart
 
   def initalize(params = {})
   	super #must be called with mongoid
+    #TODO raise if admin user not found
   end
 
   def move_item(new_position, old_position)

@@ -9,18 +9,21 @@ class CartsController < ApplicationController
   end
 
   def index
-    @carts = Cart.find_by(user: params[:userId])
+    userId = cart_params.fetch(:userId)
+    @carts = Cart.where(admin: userId)
     #TODO: to be implmeneted when user is created
-    render json: @cart
+    render json: @carts
   end
 
   def new
     @cart = Cart.new(cart_params)
+    @cart.admin = cart_params.fetch(:admin, "amit")
     render json: @cart
   end
 
   def create
     @cart = Cart.new(cart_params)
+    @cart.admin = cart_params.fetch(:admin, "amit")
     if @cart.save
       render json: @cart, status: :created
     else
@@ -35,10 +38,11 @@ class CartsController < ApplicationController
   end
 
   def update
-    unless cart_params.nil?
-      params[:date] = Time.zone.now
-    end
-
+    #TODO updated_at?
+    # unless cart_params.nil?
+    #   params[:date] = Time.zone.now
+    # end
+    
     if @cart.update_attributes(cart_params)
       head :no_content
     else
@@ -61,7 +65,7 @@ class CartsController < ApplicationController
   end
 
   def cart_params
-    params.slice(:name, :date)
+    params.slice(:name, :date, :userId)
   end
 
 end

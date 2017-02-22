@@ -11,17 +11,20 @@ RSpec.describe CartsController, :type => :controller do
     end
   end
 
-  # describe "GET #index" do
-  #   it "returns http success" do
-  #     cart = Cart.create({:name => "rspec cart index"})
-
-  #     get :index, userId: cart.admin
-  #     byebug
-  #     expect(response).to have_http_status(:success)
-  #     expect(carts[0]["name"]).to eq("rspec cart index")
-  #     expect(carts[0]["admin"]).to eq(cart.admin)
-  #   end
-  # end
+  describe "GET #index" do
+    it "returns http success" do
+      cart = Cart.create({:name => "rspec cart index", :admin => "user1"})
+      cart1 = Cart.create({:name => "rspec cart index 2", :admin => "user2"})
+      cart2 = Cart.create({:name => "rspec cart index 3", :admin => "user1"})
+      get :index, userId: cart.admin
+      
+      carts = JSON.parse(response.body)
+      expect(response).to have_http_status(:success)
+      expect(carts[0]["name"]).to eq("rspec cart index")
+      expect(carts[1]["name"]).not_to eq("rspec cart index 2")
+      expect(carts[1]["admin"]).to eq(cart.admin)
+    end
+  end
 
   describe "GET #new" do
     it "can create a new cart" do

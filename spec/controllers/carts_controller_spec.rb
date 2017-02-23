@@ -44,16 +44,17 @@ RSpec.describe CartsController, :type => :controller do
     end
   end
 
-  # describe "GET #update" do
-  #   it "returns http success" do
-  #     #TODO: fix why is it saving the object if seeded?
-  #     cart = Cart.create({:name => "rspec cart show"})
-  #     put :update,  id: cart._id, :name => "rspec cart update"
-  #     reloaded_cart = cart.reload
-  #     expect(reloaded_cart["name"]).not_to eq(cart["name"])
-  #     expect(response).to have_http_status(204)
-  #   end
-  # end
+  describe "GET #update" do
+    it "returns http success" do
+      #TODO: fix why is it saving the object if seeded?
+      cart = Cart.create({:name => "rspec cart show"})
+      cart_name = cart.name
+      put :update,  id: cart._id, :name => "rspec cart update"
+      cart.reload
+      expect(cart["name"]).not_to eq(cart_name)
+      expect(response).to have_http_status(204)
+    end
+  end
 
   describe "GET #destroy" do
     it "creates and deletes a cart" do

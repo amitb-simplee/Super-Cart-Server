@@ -60,6 +60,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.slice(:name, :quantity, :note)
+    params.slice(:name, :quantity, :note, :checked)
   end
 end

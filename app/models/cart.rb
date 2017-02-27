@@ -26,6 +26,6 @@ class Cart
   def add_user(user_email)
     user = User.find_by(email: user_email)
     #TODO raise if user not found
-    self.users << user._id unless users.include? user._id
+    self.users << user.email unless users.include? user.email
   end
 end

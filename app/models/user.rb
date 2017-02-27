@@ -5,11 +5,11 @@ class User
   field :password_salt, type: String
   field :carts, type: Array, default: []
 
-  before_save :encrypt_password
+  # before_save :encrypt_password
 
-  attr_accessor :password
-  validates_confirmation_of :password
-  validates_presence_of :password, :on => :create
+  # attr_accessor :password
+  # validates_confirmation_of :password
+  # validates_presence_of :password, :on => :create
   validates_presence_of :email
   validates_uniqueness_of :email
 

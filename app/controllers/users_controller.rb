@@ -29,6 +29,20 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  def signIn
+    begin
+       @user = User.find_by(:email => user_params["email"])
+    rescue => e
+       @user = User.new(user_params)
+       @user.save
+    end
+    if @user
+      render json: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def user_params

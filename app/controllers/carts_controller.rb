@@ -3,7 +3,8 @@ class CartsController < ApplicationController
 
   before_filter :load_user
   before_filter :load_cart, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_authorization, only: [:edit, :update, :destroy]
+  
   def show
     render json: @cart
   end
@@ -41,9 +42,9 @@ class CartsController < ApplicationController
     #   params[:date] = Time.zone.now
     # end
 
-    user_email = params.slice(:users)
+    user_email = params.slice(:users)["users"]
     if (!user_email.empty?) 
-      user_email = user_email["users"]
+      user_email = user_email
       user = User.find_by(email: user_email)
       user.add_cart(@cart._id)      
       @cart.add_user(user_email)
@@ -58,7 +59,7 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    if @cart.admin == @user.email && @cart.destroy
+    if @cart.destroy
       head :no_content
     else
       render json: @cart.errors, status: :unprocessable_entity
@@ -66,6 +67,12 @@ class CartsController < ApplicationController
   end
 
   private
+
+  def admin_authorization
+    if @cart.admin != @user.email
+      render json: @cart.errors, status: :unprocessable_entity
+    end
+  end
 
   def load_user
     userId = cart_params.fetch(:userId)

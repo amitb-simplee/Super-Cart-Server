@@ -23,9 +23,18 @@ class Cart
     items << item unless item.nil?     
   end
 
-  def add_user(user_email)
-    user = User.find_by(email: user_email)
+  def add_user(user)
     #TODO raise if user not found
-    self.users << user.email unless users.include? user.email
+    unless users.include? user.email
+      self.users << user.email
+      self.save!
+    end
+  end
+
+  def remove_user(user)
+    if users.include? user.email
+      self.users.delete(user.email)
+      self.save!
+    end
   end
 end

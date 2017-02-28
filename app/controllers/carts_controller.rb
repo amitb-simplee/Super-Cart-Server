@@ -41,15 +41,11 @@ class CartsController < ApplicationController
     # unless cart_params.nil?
     #   params[:date] = Time.zone.now
     # end
+    user_email = params.slice(:addUser)
+    add_user(user_email["addUser"]) unless (user_email.empty?) 
 
-    user_email = params.slice(:users)["users"]
-    if (!user_email.empty?) 
-      user_email = user_email
-      user = User.find_by(email: user_email)
-      user.add_cart(@cart._id)      
-      @cart.add_user(user_email)
-
-    end
+    remove_user_email = params.slice(:removeUser)
+    remove_user(remove_user_email["removeUser"]) unless (remove_user_email.empty?) 
 
     if @cart.update_attributes(cart_params)
       head :no_content
@@ -59,7 +55,31 @@ class CartsController < ApplicationController
   end
 
   def destroy
+    @user.delete_cart(@cart) 
     if @cart.destroy
+      head :no_content
+    else
+      render json: @cart.errors, status: :unprocessable_entity
+    end
+  end
+
+  def add_user(user_email)
+      if @cart.admin == @user.email
+        user = User.find_by(email: user_email)
+        user.add_cart(@cart)
+        @cart.add_user(user)
+        head :no_content
+      else
+        render json: @cart.errors, status: :unprocessable_entity
+      end
+      
+  end
+
+  def remove_user(remove_user)
+    if @cart.admin == @user.email
+      user = User.find_by(email: remove_user)
+      user.remove_cart(@cart)      
+      @cart.remove_user(user)
       head :no_content
     else
       render json: @cart.errors, status: :unprocessable_entity
@@ -85,7 +105,7 @@ class CartsController < ApplicationController
   end
 
   def cart_params
-    params.slice(:name, :date, :userId)
+    params.slice(:name, :date, :userId, :addUser, :removeUser)
   end
 
 end

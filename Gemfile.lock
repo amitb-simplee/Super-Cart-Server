@@ -140,6 +140,3 @@ DEPENDENCIES
   rails (= 3.2.22.2)
   rails-api
   rspec-rails
-
-BUNDLED WITH
-   1.14.4

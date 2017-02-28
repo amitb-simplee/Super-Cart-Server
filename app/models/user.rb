@@ -34,32 +34,45 @@ class User
   	self.carts << cart._id unless cart.nil?
   end
 
-  def add_cart(cart_id)
+  def add_cart(cart)
   	#validate that cart exists
-  	cart = Cart.find(cart_id)
+  	# cart = Cart.find(cart_id)
     # TODO send exception if cart does not exist 
     unless self.carts.include?(cart._id)
   	  self.carts << cart._id
       self.save!
     end
 
-    cart.add_user(self.email)
-    cart.save!
+    # cart.add_user(self.email)
+    # cart.save!
 
   end
 
-  def remove_cart(cart_id)
-    cart = Cart.find(cart_id)
+  def delete_cart(cart)
+    # cart = Cart.find(cart_id)
     # TODO send exception if cart does not exist
-    if cart.admin == self._id.to_s
-      users = User.where(id: { :$in => cart.users})
-      users.each{ |u| u.remove_cart(cart_id)}
-      Cart.find(cart_id).delete
-    end
-
-    self.carts = self.carts - [cart_id]
-    self.save!
     
+    admin = User.find_by(email: cart.admin)
+    users = User.where(id: { :$in => cart.users})
+    users << admin
+    users.each{ |u| u.remove_cart(cart._id)}
+
+    Cart.find(cart._id).delete
+
+
+    # self.carts = self.carts - [cart_id]
+    # self.save!
+    
+  end
+
+  def remove_cart(cart)
+    # cart = Cart.find(cart_id)
+
+      if self.carts.include?(cart._id)
+        self.carts.delete(cart._id)
+        self.save!
+      end
+
   end
 
 end
